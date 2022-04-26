@@ -67,12 +67,16 @@ class Owner(models.Model):
     phone_number = models.CharField('Номер телефона', max_length=20)
     pure_phone_number = PhoneNumberField(
         'Нормализированный номер телефона',
-        blank=True)
+        blank=True,
+        db_index=True)
     flats_in_ownership = models.ManyToManyField(
         Flat,
         verbose_name='Квартиры в собственности',
         related_name='flat_owner'
     )
+
+    def __str__(self):
+        return f'{self.name}, {self.pure_phone_number}'
 
 
 class Complaint(models.Model):
