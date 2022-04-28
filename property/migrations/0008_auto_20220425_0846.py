@@ -6,7 +6,8 @@ import phonenumbers
 
 def fill_owner_pure_number_field(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
+    flat_set = Flat.objects.all()
+    for flat in flat_set.iterator():
         parsed_phone_number = phonenumbers.parse(flat.owners_phonenumber, 'RU')
         if phonenumbers.is_valid_number(parsed_phone_number):
             normalized_phone_number = phonenumbers.format_number(
